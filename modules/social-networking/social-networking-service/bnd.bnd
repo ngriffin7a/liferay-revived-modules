@@ -1,0 +1,12 @@
+Bundle-Name: Liferay Social Networking Service
+Bundle-SymbolicName: com.liferay.social.networking.service
+Bundle-Version: 3.0.22
+Liferay-Require-SchemaVersion: 1.0.2
+Liferay-Service: true
+Import-Package:\
+	net.fortuna.ical4j.model;resolution:=optional,\
+	net.fortuna.ical4j.model.property;resolution:=optional,\
+	org.apache.axis.tools.ant.wsdl;resolution:=optional,\
+	org.apache.poi.hssf.usermodel;resolution:=optional,\
+	org.apache.poi.ss.usermodel;resolution:=optional,\
+	*

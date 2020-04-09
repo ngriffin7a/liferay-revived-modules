@@ -1,0 +1,22 @@
+buildService {
+	apiDir = "../social-networking-api/src/main/java"
+	testDir = "../social-networking-test/src/testIntegration/java"
+}
+
+dependencies {
+	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.impl"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel"
+	compileInclude group: "com.liferay.portal", name: "com.liferay.util.java"
+	compileOnly group: "javax.mail", name: "mail"
+	compileOnly group: "javax.portlet", name: "portlet-api"
+	compileOnly group: "javax.servlet", name: "javax.servlet-api"
+	// compileOnly project(":apps:foundation:portal:portal-dao-orm-custom-sql")
+	// compileOnly group: "com.liferay", name: "com.liferay.portal.dao.orm.custom.sql.api"
+	// compileOnly project(":apps:foundation:portal:portal-spring-extender")
+	compileOnly group: "com.liferay", name: "com.liferay.portal.spring.extender.api"
+	// compileOnly project(":apps:foundation:portal:portal-upgrade-api")
+	compileOnly group: "com.liferay", name: "com.liferay.portal.upgrade.api"
+	compileOnly group: "com.liferay", name: "com.liferay.petra.string"
+	compileOnly project(":modules:social-networking:social-networking-api")
+}
