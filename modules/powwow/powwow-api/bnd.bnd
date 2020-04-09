@@ -1,0 +1,15 @@
+Bundle-Name: powwow-api
+Bundle-SymbolicName: com.liferay.powwow.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.powwow.exception,\
+	com.liferay.powwow.invitation,\
+	com.liferay.powwow.model,\
+	com.liferay.powwow.provider,\
+	com.liferay.powwow.service,\
+	com.liferay.powwow.service.permission,\
+	com.liferay.powwow.service.persistence,\
+	com.liferay.powwow.subscription,\
+	com.liferay.powwow.util
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../powwow-service/service.xml

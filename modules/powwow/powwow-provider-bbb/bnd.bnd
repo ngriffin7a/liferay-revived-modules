@@ -1,0 +1,4 @@
+Bundle-Name: com.liferay.powwow.provider.bbb
+Bundle-SymbolicName: com.liferay.powwow.provider.bbb
+Bundle-Version: 1.0.0
+-metatype: *

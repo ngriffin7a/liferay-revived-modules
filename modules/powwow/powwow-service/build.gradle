@@ -1,0 +1,25 @@
+dependencies {
+	// TODO: PowwowSubscriptionSenderImpl does language translations via LanguageUtil which has a dependency on HttpServletRequest
+
+	compileOnly group: "com.liferay", name: "com.liferay.calendar.api"
+	compileOnly group: "com.liferay", name: "com.liferay.petra.content"
+	compileOnly group: "com.liferay", name: "com.liferay.petra.io"
+	compileOnly group: "com.liferay", name: "com.liferay.petra.lang"
+	compileOnly group: "com.liferay", name: "com.liferay.petra.string"
+	compileOnly group: "com.liferay", name: "com.liferay.portal.aop.api"
+	compileOnly group: "com.liferay", name: "com.liferay.portal.dao.orm.custom.sql.api"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel"
+	compileOnly group: "javax.mail", name: "javax.mail-api", version: "1.4.4"
+	compileOnly group: "javax.portlet", name: "portlet-api"
+	compileOnly group: "javax.servlet", name: "javax.servlet-api"
+	compileOnly group: "org.osgi", name: "org.osgi.annotation.versioning", version: "1.1.0"
+	compileOnly group: "org.osgi", name: "org.osgi.core", version: "6.0.0"
+	compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations", version: "1.3.0"
+	compileOnly project(":modules:powwow:powwow-api")
+}
+
+buildService {
+	apiDir = "../powwow-api/src/main/java"
+}
+
+group = "com.liferay.powwow"

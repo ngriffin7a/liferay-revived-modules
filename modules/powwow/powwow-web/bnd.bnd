@@ -1,0 +1,5 @@
+Bundle-Name: powwow-web
+Bundle-SymbolicName: com.liferay.powwow.web
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.powwow.web.constants
+-metatype: *
