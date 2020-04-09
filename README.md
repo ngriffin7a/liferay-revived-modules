@@ -1,7 +1,7 @@
-# liferay-unarchived
+# Liferay Revived Modules
 
 This is a [Liferay Workspace](https://help.liferay.com/hc/en-us/articles/360029147471-Liferay-Workspace)
-that contains revived and up-to-date source for modules that were archived
+that contains **revived** and up-to-date source for modules that were archived
 and/or deprecated by Liferay. 
 
 ## License
