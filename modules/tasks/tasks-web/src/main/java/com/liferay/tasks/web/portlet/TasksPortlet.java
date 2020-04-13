@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.tasks.web.portlet;
 
 import com.liferay.asset.kernel.exception.AssetTagException;
@@ -7,6 +21,7 @@ import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
@@ -19,11 +34,12 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.tasks.model.TasksEntry;
 import com.liferay.tasks.service.TasksEntryLocalService;
-import com.liferay.tasks.service.TasksEntryLocalServiceUtil;
 import com.liferay.tasks.service.TasksEntryServiceUtil;
 import com.liferay.tasks.web.constants.TasksWebKeys;
 
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import java.io.IOException;
+
+import java.util.Calendar;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -35,9 +51,6 @@ import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-
-import java.io.IOException;
-import java.util.Calendar;
 
 /**
  * @author Neil Griffin
@@ -62,21 +75,16 @@ import java.util.Calendar;
 )
 public class TasksPortlet extends MVCPortlet {
 
-	@Override
-	protected void include(String path, PortletRequest portletRequest, PortletResponse portletResponse, String lifecycle) throws IOException, PortletException {
-
-		portletRequest.setAttribute("tasksEntryLocalService", getTasksEntryLocalService());
-
-		super.include(path, portletRequest, portletResponse, lifecycle);
-	}
-
 	public void deleteTasksEntry(
-		ActionRequest actionRequest, ActionResponse actionResponse)
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		long tasksEntryId = ParamUtil.getLong(actionRequest, "tasksEntryId");
 
-		TasksEntryServiceUtil.deleteTasksEntry(tasksEntryId);
+		TasksEntryLocalService tasksEntryLocalService =
+			getTasksEntryLocalService();
+
+		tasksEntryLocalService.deleteTasksEntry(tasksEntryId);
 
 		String redirect = ParamUtil.getString(actionRequest, "redirect");
 
@@ -94,7 +102,7 @@ public class TasksPortlet extends MVCPortlet {
 
 	@Override
 	public void processAction(
-		ActionRequest actionRequest, ActionResponse actionResponse)
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws IOException, PortletException {
 
 		if (!callActionMethod(actionRequest, actionResponse)) {
@@ -117,7 +125,7 @@ public class TasksPortlet extends MVCPortlet {
 	}
 
 	public void updateTasksEntry(
-		ActionRequest actionRequest, ActionResponse actionResponse)
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
@@ -192,7 +200,7 @@ public class TasksPortlet extends MVCPortlet {
 	}
 
 	public void updateTasksEntryStatus(
-		ActionRequest actionRequest, ActionResponse actionResponse)
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
@@ -208,7 +216,8 @@ public class TasksPortlet extends MVCPortlet {
 			TasksEntry.class.getName(), actionRequest);
 
 		TasksEntryServiceUtil.updateTasksEntryStatus(
-			tasksEntryId, resolverUserId, status, TasksWebKeys.TASKS_PORTLET, serviceContext);
+			tasksEntryId, resolverUserId, status, TasksWebKeys.TASKS_PORTLET,
+			serviceContext);
 
 		Layout layout = themeDisplay.getLayout();
 
@@ -224,12 +233,12 @@ public class TasksPortlet extends MVCPortlet {
 	}
 
 	public void updateTasksEntryViewCount(
-		ActionRequest actionRequest, ActionResponse actionResponse)
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		long tasksEntryId = ParamUtil.getLong(actionRequest, "tasksEntryId");
 
-		TasksEntry tasksEntry = TasksEntryLocalServiceUtil.fetchTasksEntry(
+		TasksEntry tasksEntry = getTasksEntryLocalService().fetchTasksEntry(
 			tasksEntryId);
 
 		if (tasksEntry == null) {
@@ -240,14 +249,26 @@ public class TasksPortlet extends MVCPortlet {
 			WebKeys.THEME_DISPLAY);
 
 		AssetEntryLocalServiceUtil.incrementViewCounter(
-			themeDisplay.getUserId(),
-			TasksEntry.class.getName(), tasksEntryId);
+			themeDisplay.getUserId(), TasksEntry.class.getName(), tasksEntryId);
 	}
 
 	protected TasksEntryLocalService getTasksEntryLocalService() {
 		return _tasksEntryLocalService;
 	}
 
+	@Override
+	protected void include(
+			String path, PortletRequest portletRequest,
+			PortletResponse portletResponse, String lifecycle)
+		throws IOException, PortletException {
+
+		portletRequest.setAttribute(
+			"tasksEntryLocalService", getTasksEntryLocalService());
+
+		super.include(path, portletRequest, portletResponse, lifecycle);
+	}
+
 	@Reference
 	private TasksEntryLocalService _tasksEntryLocalService;
+
 }
