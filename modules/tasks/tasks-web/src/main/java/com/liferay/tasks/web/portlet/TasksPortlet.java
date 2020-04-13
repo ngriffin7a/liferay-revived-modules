@@ -65,7 +65,7 @@ public class TasksPortlet extends MVCPortlet {
 	@Override
 	protected void include(String path, PortletRequest portletRequest, PortletResponse portletResponse, String lifecycle) throws IOException, PortletException {
 
-		portletRequest.setAttribute("tasksEntryLocalService", _tasksEntryLocalService);
+		portletRequest.setAttribute("tasksEntryLocalService", getTasksEntryLocalService());
 
 		super.include(path, portletRequest, portletResponse, lifecycle);
 	}
@@ -242,6 +242,10 @@ public class TasksPortlet extends MVCPortlet {
 		AssetEntryLocalServiceUtil.incrementViewCounter(
 			themeDisplay.getUserId(),
 			TasksEntry.class.getName(), tasksEntryId);
+	}
+
+	protected TasksEntryLocalService getTasksEntryLocalService() {
+		return _tasksEntryLocalService;
 	}
 
 	@Reference

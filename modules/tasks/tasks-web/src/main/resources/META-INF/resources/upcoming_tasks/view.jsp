@@ -29,7 +29,7 @@
 			String taskHREF = null;
 
 			if (TasksEntryPermission.contains(permissionChecker, tasksEntry, ActionKeys.UPDATE)) {
-				LiferayPortletURL liferayPortletURL = liferayPortletResponse.createLiferayPortletURL(PortletKeys.TASKS, PortletRequest.RENDER_PHASE);
+				LiferayPortletURL liferayPortletURL = liferayPortletResponse.createLiferayPortletURL(TasksWebKeys.TASKS_PORTLET, PortletRequest.RENDER_PHASE);
 
 				liferayPortletURL.setParameter("mvcPath", "/tasks/view_task.jsp");
 				liferayPortletURL.setParameter("tasksEntryId", String.valueOf(tasksEntry.getTasksEntryId()));
@@ -79,12 +79,12 @@
 	<div class="view-all-tasks">
 
 		<%
-		long tasksPlid = PortalUtil.getPlidFromPortletId(group.getGroupId(), PortletKeys.TASKS);
+		long tasksPlid = PortalUtil.getPlidFromPortletId(group.getGroupId(), TasksWebKeys.TASKS_PORTLET);
 
 		PortletURL portletURL = null;
 
 		if (tasksPlid != 0) {
-			portletURL = PortletURLFactoryUtil.create(request, PortletKeys.TASKS, tasksPlid, PortletRequest.RENDER_PHASE);
+			portletURL = PortletURLFactoryUtil.create(request, TasksWebKeys.TASKS_PORTLET, tasksPlid, PortletRequest.RENDER_PHASE);
 		}
 		%>
 
