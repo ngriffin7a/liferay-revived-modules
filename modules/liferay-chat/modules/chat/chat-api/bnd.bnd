@@ -1,0 +1,14 @@
+Bundle-Name: chat-api
+Bundle-SymbolicName: com.liferay.chat.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.chat.constants,\
+	com.liferay.chat.exception,\
+	com.liferay.chat.jabber,\
+	com.liferay.chat.model,\
+	com.liferay.chat.service,\
+	com.liferay.chat.service.persistence,\
+	com.liferay.chat.util,\
+	com.liferay.chat.util.comparator
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../chat-service/service.xml
