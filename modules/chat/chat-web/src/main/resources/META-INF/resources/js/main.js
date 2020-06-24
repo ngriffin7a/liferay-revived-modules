@@ -747,7 +747,7 @@ AUI().use(
 				var content = entry.content;
 				var incoming = entry.incoming;
 
-				var userName = themeDisplay.getUserName();
+				var userName = unescape(JSON.parse('"' + themeDisplay.getUserName() + '"'));
 
 				if (incoming) {
 					cssClass = 'incoming';
