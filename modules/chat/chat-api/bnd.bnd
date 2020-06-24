@@ -10,7 +10,3 @@ Export-Package:\
 	com.liferay.chat.service.persistence,\
 	com.liferay.chat.util,\
 	com.liferay.chat.util.comparator
-Import-Package:\
-	com.liferay.portal.kernel.util;version="[9.0,10)",\
-	\
-	*
