@@ -1,0 +1,6 @@
+com/liferay/chat/model/Entry$1.getTypeClass()Ljava/lang/Class;:SAFE
+com/liferay/chat/model/Entry$1.getAttributeClass()Ljava/lang/Class;:SAFE
+com/liferay/chat/model/Entry$1.get(Ljava/lang/Object;)Ljava/lang/Object;:SAFE
+com/liferay/chat/model/Status$1.getAttributeClass()Ljava/lang/Class;:SAFE
+com/liferay/chat/model/Status$1.getTypeClass()Ljava/lang/Class;:SAFE
+com/liferay/chat/model/Status$1.get(Ljava/lang/Object;)Ljava/lang/Object;:SAFE

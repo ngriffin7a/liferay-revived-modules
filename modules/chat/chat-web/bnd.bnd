@@ -1,0 +1,7 @@
+Bundle-Name: Liferay Chat Web
+Bundle-SymbolicName: com.liferay.chat.web
+Bundle-Version: 3.0.14
+Web-ContextPath: /chat-web
+Import-Package:\
+	com.liferay.portal.kernel.util;version="[9.0,10)",\
+	*

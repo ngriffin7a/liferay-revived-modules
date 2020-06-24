@@ -1,0 +1,9 @@
+Bundle-Name: Liferay Chat Service
+Bundle-SymbolicName: com.liferay.chat.service
+Bundle-Version: 4.0.32
+Liferay-Require-SchemaVersion: 1.0.0
+Liferay-Service: true
+-dsannotations-options: inherit
+Import-Package:\
+	com.liferay.portal.kernel.util;version="[9.0,10)",\
+	*
