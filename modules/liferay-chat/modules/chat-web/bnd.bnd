@@ -1,0 +1,4 @@
+Bundle-Name: chat-web
+Bundle-SymbolicName: com.liferay.chat.web.internal
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.chat.web.internal.constants

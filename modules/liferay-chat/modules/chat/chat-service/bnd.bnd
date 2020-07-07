@@ -1,0 +1,14 @@
+Bundle-Name: chat-service
+Bundle-SymbolicName: com.liferay.chat.service
+Bundle-Version: 1.0.0
+Liferay-Require-SchemaVersion: 1.0.0
+Liferay-Service: true
+-dsannotations-options: inherit
+Import-Package:*;resolution:=optional
+Bundle-ClassPath:\
+.,\
+lib/smack.jar,\
+lib/smackx.jar
+-includeresource:\
+lib/smack.jar=smack-3.2.1.jar,\
+lib/smackx.jar=smackx-3.2.1.jar
