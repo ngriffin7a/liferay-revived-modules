@@ -11,7 +11,6 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-
 package com.liferay.social.networking.exception;
 
 import com.liferay.portal.kernel.exception.NoSuchModelException;
@@ -28,12 +27,12 @@ public class NoSuchMeetupsEntryException extends NoSuchModelException {
 		super(msg);
 	}
 
-	public NoSuchMeetupsEntryException(String msg, Throwable cause) {
-		super(msg, cause);
+	public NoSuchMeetupsEntryException(String msg, Throwable throwable) {
+		super(msg, throwable);
 	}
 
-	public NoSuchMeetupsEntryException(Throwable cause) {
-		super(cause);
+	public NoSuchMeetupsEntryException(Throwable throwable) {
+		super(throwable);
 	}
 
 }

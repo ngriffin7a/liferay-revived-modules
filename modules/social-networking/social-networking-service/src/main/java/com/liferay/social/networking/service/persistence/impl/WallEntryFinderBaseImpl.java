@@ -14,42 +14,65 @@
 
 package com.liferay.social.networking.service.persistence.impl;
 
-import com.liferay.portal.kernel.bean.BeanReference;
+import com.liferay.portal.kernel.configuration.Configuration;
+import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.social.networking.model.WallEntry;
 import com.liferay.social.networking.service.persistence.WallEntryPersistence;
+import com.liferay.social.networking.service.persistence.impl.constants.SNPersistenceConstants;
+
+import javax.sql.DataSource;
+
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Brian Wing Shun Chan
  * @generated
  */
-public class WallEntryFinderBaseImpl extends BasePersistenceImpl<WallEntry> {
+public abstract class WallEntryFinderBaseImpl
+	extends BasePersistenceImpl<WallEntry> {
 
 	public WallEntryFinderBaseImpl() {
 		setModelClass(WallEntry.class);
 	}
 
-	/**
-	 * Returns the wall entry persistence.
-	 *
-	 * @return the wall entry persistence
-	 */
-	public WallEntryPersistence getWallEntryPersistence() {
-		return wallEntryPersistence;
+	@Override
+	@Reference(
+		target = SNPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
+		unbind = "-"
+	)
+	public void setConfiguration(Configuration configuration) {
+		super.setConfiguration(configuration);
 	}
 
-	/**
-	 * Sets the wall entry persistence.
-	 *
-	 * @param wallEntryPersistence the wall entry persistence
-	 */
-	public void setWallEntryPersistence(
-		WallEntryPersistence wallEntryPersistence) {
-
-		this.wallEntryPersistence = wallEntryPersistence;
+	@Override
+	@Reference(
+		target = SNPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		unbind = "-"
+	)
+	public void setDataSource(DataSource dataSource) {
+		super.setDataSource(dataSource);
 	}
 
-	@BeanReference(type = WallEntryPersistence.class)
+	@Override
+	@Reference(
+		target = SNPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		unbind = "-"
+	)
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		super.setSessionFactory(sessionFactory);
+	}
+
+	@Reference
 	protected WallEntryPersistence wallEntryPersistence;
+
+	static {
+		try {
+			Class.forName(SNPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException classNotFoundException) {
+			throw new ExceptionInInitializerError(classNotFoundException);
+		}
+	}
 
 }

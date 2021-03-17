@@ -16,6 +16,7 @@ package com.liferay.social.networking.model.impl;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.CacheModel;
@@ -25,9 +26,7 @@ import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.DateUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.social.networking.model.WallEntry;
 import com.liferay.social.networking.model.WallEntryModel;
 
@@ -105,30 +104,19 @@ public class WallEntryModelImpl
 
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
-	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(
-		com.liferay.social.networking.service.util.ServiceProps.get(
-			"value.object.entity.cache.enabled.com.liferay.social.networking.model.WallEntry"),
-		true);
-
-	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(
-		com.liferay.social.networking.service.util.ServiceProps.get(
-			"value.object.finder.cache.enabled.com.liferay.social.networking.model.WallEntry"),
-		true);
-
-	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(
-		com.liferay.social.networking.service.util.ServiceProps.get(
-			"value.object.column.bitmask.enabled.com.liferay.social.networking.model.WallEntry"),
-		true);
-
 	public static final long GROUPID_COLUMN_BITMASK = 1L;
 
 	public static final long USERID_COLUMN_BITMASK = 2L;
 
 	public static final long CREATEDATE_COLUMN_BITMASK = 4L;
 
-	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
-		com.liferay.social.networking.service.util.ServiceProps.get(
-			"lock.expiration.time.com.liferay.social.networking.model.WallEntry"));
+	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
+		_entityCacheEnabled = entityCacheEnabled;
+	}
+
+	public static void setFinderCacheEnabled(boolean finderCacheEnabled) {
+		_finderCacheEnabled = finderCacheEnabled;
+	}
 
 	public WallEntryModelImpl() {
 	}
@@ -256,174 +244,34 @@ public class WallEntryModelImpl
 		Map<String, BiConsumer<WallEntry, ?>> attributeSetterBiConsumers =
 			new LinkedHashMap<String, BiConsumer<WallEntry, ?>>();
 
-		attributeGetterFunctions.put(
-			"wallEntryId",
-			new Function<WallEntry, Object>() {
-
-				@Override
-				public Object apply(WallEntry wallEntry) {
-					return wallEntry.getWallEntryId();
-				}
-
-			});
+		attributeGetterFunctions.put("wallEntryId", WallEntry::getWallEntryId);
 		attributeSetterBiConsumers.put(
 			"wallEntryId",
-			new BiConsumer<WallEntry, Object>() {
-
-				@Override
-				public void accept(
-					WallEntry wallEntry, Object wallEntryIdObject) {
-
-					wallEntry.setWallEntryId((Long)wallEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<WallEntry, Object>() {
-
-				@Override
-				public Object apply(WallEntry wallEntry) {
-					return wallEntry.getGroupId();
-				}
-
-			});
+			(BiConsumer<WallEntry, Long>)WallEntry::setWallEntryId);
+		attributeGetterFunctions.put("groupId", WallEntry::getGroupId);
 		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<WallEntry, Object>() {
-
-				@Override
-				public void accept(WallEntry wallEntry, Object groupIdObject) {
-					wallEntry.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<WallEntry, Object>() {
-
-				@Override
-				public Object apply(WallEntry wallEntry) {
-					return wallEntry.getCompanyId();
-				}
-
-			});
+			"groupId", (BiConsumer<WallEntry, Long>)WallEntry::setGroupId);
+		attributeGetterFunctions.put("companyId", WallEntry::getCompanyId);
 		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<WallEntry, Object>() {
-
-				@Override
-				public void accept(
-					WallEntry wallEntry, Object companyIdObject) {
-
-					wallEntry.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<WallEntry, Object>() {
-
-				@Override
-				public Object apply(WallEntry wallEntry) {
-					return wallEntry.getUserId();
-				}
-
-			});
+			"companyId", (BiConsumer<WallEntry, Long>)WallEntry::setCompanyId);
+		attributeGetterFunctions.put("userId", WallEntry::getUserId);
 		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<WallEntry, Object>() {
-
-				@Override
-				public void accept(WallEntry wallEntry, Object userIdObject) {
-					wallEntry.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<WallEntry, Object>() {
-
-				@Override
-				public Object apply(WallEntry wallEntry) {
-					return wallEntry.getUserName();
-				}
-
-			});
+			"userId", (BiConsumer<WallEntry, Long>)WallEntry::setUserId);
+		attributeGetterFunctions.put("userName", WallEntry::getUserName);
 		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<WallEntry, Object>() {
-
-				@Override
-				public void accept(WallEntry wallEntry, Object userNameObject) {
-					wallEntry.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<WallEntry, Object>() {
-
-				@Override
-				public Object apply(WallEntry wallEntry) {
-					return wallEntry.getCreateDate();
-				}
-
-			});
+			"userName", (BiConsumer<WallEntry, String>)WallEntry::setUserName);
+		attributeGetterFunctions.put("createDate", WallEntry::getCreateDate);
 		attributeSetterBiConsumers.put(
 			"createDate",
-			new BiConsumer<WallEntry, Object>() {
-
-				@Override
-				public void accept(
-					WallEntry wallEntry, Object createDateObject) {
-
-					wallEntry.setCreateDate((Date)createDateObject);
-				}
-
-			});
+			(BiConsumer<WallEntry, Date>)WallEntry::setCreateDate);
 		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<WallEntry, Object>() {
-
-				@Override
-				public Object apply(WallEntry wallEntry) {
-					return wallEntry.getModifiedDate();
-				}
-
-			});
+			"modifiedDate", WallEntry::getModifiedDate);
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
-			new BiConsumer<WallEntry, Object>() {
-
-				@Override
-				public void accept(
-					WallEntry wallEntry, Object modifiedDateObject) {
-
-					wallEntry.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"comments",
-			new Function<WallEntry, Object>() {
-
-				@Override
-				public Object apply(WallEntry wallEntry) {
-					return wallEntry.getComments();
-				}
-
-			});
+			(BiConsumer<WallEntry, Date>)WallEntry::setModifiedDate);
+		attributeGetterFunctions.put("comments", WallEntry::getComments);
 		attributeSetterBiConsumers.put(
-			"comments",
-			new BiConsumer<WallEntry, Object>() {
-
-				@Override
-				public void accept(WallEntry wallEntry, Object commentsObject) {
-					wallEntry.setComments((String)commentsObject);
-				}
-
-			});
+			"comments", (BiConsumer<WallEntry, String>)WallEntry::setComments);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -533,8 +381,6 @@ public class WallEntryModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -635,16 +481,16 @@ public class WallEntryModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof WallEntry)) {
+		if (!(object instanceof WallEntry)) {
 			return false;
 		}
 
-		WallEntry wallEntry = (WallEntry)obj;
+		WallEntry wallEntry = (WallEntry)object;
 
 		long primaryKey = wallEntry.getPrimaryKey();
 
@@ -663,29 +509,27 @@ public class WallEntryModelImpl
 
 	@Override
 	public boolean isEntityCacheEnabled() {
-		return ENTITY_CACHE_ENABLED;
+		return _entityCacheEnabled;
 	}
 
 	@Override
 	public boolean isFinderCacheEnabled() {
-		return FINDER_CACHE_ENABLED;
+		return _finderCacheEnabled;
 	}
 
 	@Override
 	public void resetOriginalValues() {
-		WallEntryModelImpl wallEntryModelImpl = this;
+		_originalGroupId = _groupId;
 
-		wallEntryModelImpl._originalGroupId = wallEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		wallEntryModelImpl._setOriginalGroupId = false;
+		_originalUserId = _userId;
 
-		wallEntryModelImpl._originalUserId = wallEntryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		wallEntryModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
 
-		wallEntryModelImpl._setModifiedDate = false;
-
-		wallEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override
@@ -743,7 +587,7 @@ public class WallEntryModelImpl
 			getAttributeGetterFunctions();
 
 		StringBundler sb = new StringBundler(
-			4 * attributeGetterFunctions.size() + 2);
+			(4 * attributeGetterFunctions.size()) + 2);
 
 		sb.append("{");
 
@@ -775,7 +619,7 @@ public class WallEntryModelImpl
 			getAttributeGetterFunctions();
 
 		StringBundler sb = new StringBundler(
-			5 * attributeGetterFunctions.size() + 4);
+			(5 * attributeGetterFunctions.size()) + 4);
 
 		sb.append("<model><model-name>");
 		sb.append(getModelClassName());
@@ -806,6 +650,9 @@ public class WallEntryModelImpl
 			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 
 	}
+
+	private static boolean _entityCacheEnabled;
+	private static boolean _finderCacheEnabled;
 
 	private long _wallEntryId;
 	private long _groupId;

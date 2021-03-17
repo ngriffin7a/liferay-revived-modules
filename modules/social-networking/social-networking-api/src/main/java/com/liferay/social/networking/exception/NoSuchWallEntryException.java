@@ -11,7 +11,6 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-
 package com.liferay.social.networking.exception;
 
 import com.liferay.portal.kernel.exception.NoSuchModelException;
@@ -28,12 +27,12 @@ public class NoSuchWallEntryException extends NoSuchModelException {
 		super(msg);
 	}
 
-	public NoSuchWallEntryException(String msg, Throwable cause) {
-		super(msg, cause);
+	public NoSuchWallEntryException(String msg, Throwable throwable) {
+		super(msg, throwable);
 	}
 
-	public NoSuchWallEntryException(Throwable cause) {
-		super(cause);
+	public NoSuchWallEntryException(Throwable throwable) {
+		super(throwable);
 	}
 
 }

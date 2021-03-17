@@ -11,7 +11,6 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-
 package com.liferay.social.networking.exception;
 
 import com.liferay.portal.kernel.exception.PortalException;
@@ -28,12 +27,12 @@ public class MeetupsEntryStartDateException extends PortalException {
 		super(msg);
 	}
 
-	public MeetupsEntryStartDateException(String msg, Throwable cause) {
-		super(msg, cause);
+	public MeetupsEntryStartDateException(String msg, Throwable throwable) {
+		super(msg, throwable);
 	}
 
-	public MeetupsEntryStartDateException(Throwable cause) {
-		super(cause);
+	public MeetupsEntryStartDateException(Throwable throwable) {
+		super(throwable);
 	}
 
 }

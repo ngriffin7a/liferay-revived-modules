@@ -14,8 +14,6 @@
 
 package com.liferay.social.networking.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
@@ -36,6 +34,8 @@ import com.liferay.social.networking.model.MeetupsEntry;
 import java.io.Serializable;
 
 import java.util.List;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Provides the local service interface for MeetupsEntry. Methods of this
@@ -58,7 +58,7 @@ public interface MeetupsEntryLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link MeetupsEntryLocalServiceUtil} to access the meetups entry local service. Add custom service methods to <code>com.liferay.social.networking.service.impl.MeetupsEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.social.networking.service.impl.MeetupsEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the meetups entry local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link MeetupsEntryLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public MeetupsEntry addMeetupsEntry(
 			long userId, String title, String description, int startDateMonth,
@@ -71,6 +71,10 @@ public interface MeetupsEntryLocalService
 
 	/**
 	 * Adds the meetups entry to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect MeetupsEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param meetupsEntry the meetups entry
 	 * @return the meetups entry that was added
@@ -90,6 +94,10 @@ public interface MeetupsEntryLocalService
 	/**
 	 * Deletes the meetups entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect MeetupsEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param meetupsEntryId the primary key of the meetups entry
 	 * @return the meetups entry that was removed
 	 * @throws PortalException if a meetups entry with the primary key could not be found
@@ -100,6 +108,10 @@ public interface MeetupsEntryLocalService
 
 	/**
 	 * Deletes the meetups entry from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect MeetupsEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param meetupsEntry the meetups entry
 	 * @return the meetups entry that was removed
@@ -254,6 +266,10 @@ public interface MeetupsEntryLocalService
 
 	/**
 	 * Updates the meetups entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect MeetupsEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param meetupsEntry the meetups entry
 	 * @return the meetups entry that was updated

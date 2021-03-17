@@ -16,6 +16,7 @@ package com.liferay.social.networking.model.impl;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.CacheModel;
@@ -25,9 +26,7 @@ import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.DateUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.social.networking.model.MeetupsRegistration;
 import com.liferay.social.networking.model.MeetupsRegistrationModel;
 
@@ -109,21 +108,6 @@ public class MeetupsRegistrationModelImpl
 
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
-	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(
-		com.liferay.social.networking.service.util.ServiceProps.get(
-			"value.object.entity.cache.enabled.com.liferay.social.networking.model.MeetupsRegistration"),
-		true);
-
-	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(
-		com.liferay.social.networking.service.util.ServiceProps.get(
-			"value.object.finder.cache.enabled.com.liferay.social.networking.model.MeetupsRegistration"),
-		true);
-
-	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(
-		com.liferay.social.networking.service.util.ServiceProps.get(
-			"value.object.column.bitmask.enabled.com.liferay.social.networking.model.MeetupsRegistration"),
-		true);
-
 	public static final long MEETUPSENTRYID_COLUMN_BITMASK = 1L;
 
 	public static final long STATUS_COLUMN_BITMASK = 2L;
@@ -132,9 +116,13 @@ public class MeetupsRegistrationModelImpl
 
 	public static final long MODIFIEDDATE_COLUMN_BITMASK = 8L;
 
-	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
-		com.liferay.social.networking.service.util.ServiceProps.get(
-			"lock.expiration.time.com.liferay.social.networking.model.MeetupsRegistration"));
+	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
+		_entityCacheEnabled = entityCacheEnabled;
+	}
+
+	public static void setFinderCacheEnabled(boolean finderCacheEnabled) {
+		_finderCacheEnabled = finderCacheEnabled;
+	}
 
 	public MeetupsRegistrationModelImpl() {
 	}
@@ -268,214 +256,57 @@ public class MeetupsRegistrationModelImpl
 
 		attributeGetterFunctions.put(
 			"meetupsRegistrationId",
-			new Function<MeetupsRegistration, Object>() {
-
-				@Override
-				public Object apply(MeetupsRegistration meetupsRegistration) {
-					return meetupsRegistration.getMeetupsRegistrationId();
-				}
-
-			});
+			MeetupsRegistration::getMeetupsRegistrationId);
 		attributeSetterBiConsumers.put(
 			"meetupsRegistrationId",
-			new BiConsumer<MeetupsRegistration, Object>() {
-
-				@Override
-				public void accept(
-					MeetupsRegistration meetupsRegistration,
-					Object meetupsRegistrationIdObject) {
-
-					meetupsRegistration.setMeetupsRegistrationId(
-						(Long)meetupsRegistrationIdObject);
-				}
-
-			});
+			(BiConsumer<MeetupsRegistration, Long>)
+				MeetupsRegistration::setMeetupsRegistrationId);
 		attributeGetterFunctions.put(
-			"companyId",
-			new Function<MeetupsRegistration, Object>() {
-
-				@Override
-				public Object apply(MeetupsRegistration meetupsRegistration) {
-					return meetupsRegistration.getCompanyId();
-				}
-
-			});
+			"companyId", MeetupsRegistration::getCompanyId);
 		attributeSetterBiConsumers.put(
 			"companyId",
-			new BiConsumer<MeetupsRegistration, Object>() {
-
-				@Override
-				public void accept(
-					MeetupsRegistration meetupsRegistration,
-					Object companyIdObject) {
-
-					meetupsRegistration.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<MeetupsRegistration, Object>() {
-
-				@Override
-				public Object apply(MeetupsRegistration meetupsRegistration) {
-					return meetupsRegistration.getUserId();
-				}
-
-			});
+			(BiConsumer<MeetupsRegistration, Long>)
+				MeetupsRegistration::setCompanyId);
+		attributeGetterFunctions.put("userId", MeetupsRegistration::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId",
-			new BiConsumer<MeetupsRegistration, Object>() {
-
-				@Override
-				public void accept(
-					MeetupsRegistration meetupsRegistration,
-					Object userIdObject) {
-
-					meetupsRegistration.setUserId((Long)userIdObject);
-				}
-
-			});
+			(BiConsumer<MeetupsRegistration, Long>)
+				MeetupsRegistration::setUserId);
 		attributeGetterFunctions.put(
-			"userName",
-			new Function<MeetupsRegistration, Object>() {
-
-				@Override
-				public Object apply(MeetupsRegistration meetupsRegistration) {
-					return meetupsRegistration.getUserName();
-				}
-
-			});
+			"userName", MeetupsRegistration::getUserName);
 		attributeSetterBiConsumers.put(
 			"userName",
-			new BiConsumer<MeetupsRegistration, Object>() {
-
-				@Override
-				public void accept(
-					MeetupsRegistration meetupsRegistration,
-					Object userNameObject) {
-
-					meetupsRegistration.setUserName((String)userNameObject);
-				}
-
-			});
+			(BiConsumer<MeetupsRegistration, String>)
+				MeetupsRegistration::setUserName);
 		attributeGetterFunctions.put(
-			"createDate",
-			new Function<MeetupsRegistration, Object>() {
-
-				@Override
-				public Object apply(MeetupsRegistration meetupsRegistration) {
-					return meetupsRegistration.getCreateDate();
-				}
-
-			});
+			"createDate", MeetupsRegistration::getCreateDate);
 		attributeSetterBiConsumers.put(
 			"createDate",
-			new BiConsumer<MeetupsRegistration, Object>() {
-
-				@Override
-				public void accept(
-					MeetupsRegistration meetupsRegistration,
-					Object createDateObject) {
-
-					meetupsRegistration.setCreateDate((Date)createDateObject);
-				}
-
-			});
+			(BiConsumer<MeetupsRegistration, Date>)
+				MeetupsRegistration::setCreateDate);
 		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<MeetupsRegistration, Object>() {
-
-				@Override
-				public Object apply(MeetupsRegistration meetupsRegistration) {
-					return meetupsRegistration.getModifiedDate();
-				}
-
-			});
+			"modifiedDate", MeetupsRegistration::getModifiedDate);
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
-			new BiConsumer<MeetupsRegistration, Object>() {
-
-				@Override
-				public void accept(
-					MeetupsRegistration meetupsRegistration,
-					Object modifiedDateObject) {
-
-					meetupsRegistration.setModifiedDate(
-						(Date)modifiedDateObject);
-				}
-
-			});
+			(BiConsumer<MeetupsRegistration, Date>)
+				MeetupsRegistration::setModifiedDate);
 		attributeGetterFunctions.put(
-			"meetupsEntryId",
-			new Function<MeetupsRegistration, Object>() {
-
-				@Override
-				public Object apply(MeetupsRegistration meetupsRegistration) {
-					return meetupsRegistration.getMeetupsEntryId();
-				}
-
-			});
+			"meetupsEntryId", MeetupsRegistration::getMeetupsEntryId);
 		attributeSetterBiConsumers.put(
 			"meetupsEntryId",
-			new BiConsumer<MeetupsRegistration, Object>() {
-
-				@Override
-				public void accept(
-					MeetupsRegistration meetupsRegistration,
-					Object meetupsEntryIdObject) {
-
-					meetupsRegistration.setMeetupsEntryId(
-						(Long)meetupsEntryIdObject);
-				}
-
-			});
+			(BiConsumer<MeetupsRegistration, Long>)
+				MeetupsRegistration::setMeetupsEntryId);
 		attributeGetterFunctions.put(
-			"comments",
-			new Function<MeetupsRegistration, Object>() {
-
-				@Override
-				public Object apply(MeetupsRegistration meetupsRegistration) {
-					return meetupsRegistration.getComments();
-				}
-
-			});
+			"comments", MeetupsRegistration::getComments);
 		attributeSetterBiConsumers.put(
 			"comments",
-			new BiConsumer<MeetupsRegistration, Object>() {
-
-				@Override
-				public void accept(
-					MeetupsRegistration meetupsRegistration,
-					Object commentsObject) {
-
-					meetupsRegistration.setComments((String)commentsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<MeetupsRegistration, Object>() {
-
-				@Override
-				public Object apply(MeetupsRegistration meetupsRegistration) {
-					return meetupsRegistration.getStatus();
-				}
-
-			});
+			(BiConsumer<MeetupsRegistration, String>)
+				MeetupsRegistration::setComments);
+		attributeGetterFunctions.put("status", MeetupsRegistration::getStatus);
 		attributeSetterBiConsumers.put(
 			"status",
-			new BiConsumer<MeetupsRegistration, Object>() {
-
-				@Override
-				public void accept(
-					MeetupsRegistration meetupsRegistration,
-					Object statusObject) {
-
-					meetupsRegistration.setStatus((Integer)statusObject);
-				}
-
-			});
+			(BiConsumer<MeetupsRegistration, Integer>)
+				MeetupsRegistration::setStatus);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -578,8 +409,6 @@ public class MeetupsRegistrationModelImpl
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
-
-		_columnBitmask = -1L;
 
 		_modifiedDate = modifiedDate;
 	}
@@ -714,16 +543,16 @@ public class MeetupsRegistrationModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof MeetupsRegistration)) {
+		if (!(object instanceof MeetupsRegistration)) {
 			return false;
 		}
 
-		MeetupsRegistration meetupsRegistration = (MeetupsRegistration)obj;
+		MeetupsRegistration meetupsRegistration = (MeetupsRegistration)object;
 
 		long primaryKey = meetupsRegistration.getPrimaryKey();
 
@@ -742,36 +571,30 @@ public class MeetupsRegistrationModelImpl
 
 	@Override
 	public boolean isEntityCacheEnabled() {
-		return ENTITY_CACHE_ENABLED;
+		return _entityCacheEnabled;
 	}
 
 	@Override
 	public boolean isFinderCacheEnabled() {
-		return FINDER_CACHE_ENABLED;
+		return _finderCacheEnabled;
 	}
 
 	@Override
 	public void resetOriginalValues() {
-		MeetupsRegistrationModelImpl meetupsRegistrationModelImpl = this;
+		_originalUserId = _userId;
 
-		meetupsRegistrationModelImpl._originalUserId =
-			meetupsRegistrationModelImpl._userId;
+		_setOriginalUserId = false;
 
-		meetupsRegistrationModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalMeetupsEntryId = _meetupsEntryId;
 
-		meetupsRegistrationModelImpl._setModifiedDate = false;
+		_setOriginalMeetupsEntryId = false;
 
-		meetupsRegistrationModelImpl._originalMeetupsEntryId =
-			meetupsRegistrationModelImpl._meetupsEntryId;
+		_originalStatus = _status;
 
-		meetupsRegistrationModelImpl._setOriginalMeetupsEntryId = false;
+		_setOriginalStatus = false;
 
-		meetupsRegistrationModelImpl._originalStatus =
-			meetupsRegistrationModelImpl._status;
-
-		meetupsRegistrationModelImpl._setOriginalStatus = false;
-
-		meetupsRegistrationModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override
@@ -833,7 +656,7 @@ public class MeetupsRegistrationModelImpl
 			attributeGetterFunctions = getAttributeGetterFunctions();
 
 		StringBundler sb = new StringBundler(
-			4 * attributeGetterFunctions.size() + 2);
+			(4 * attributeGetterFunctions.size()) + 2);
 
 		sb.append("{");
 
@@ -865,7 +688,7 @@ public class MeetupsRegistrationModelImpl
 			attributeGetterFunctions = getAttributeGetterFunctions();
 
 		StringBundler sb = new StringBundler(
-			5 * attributeGetterFunctions.size() + 4);
+			(5 * attributeGetterFunctions.size()) + 4);
 
 		sb.append("<model><model-name>");
 		sb.append(getModelClassName());
@@ -896,6 +719,9 @@ public class MeetupsRegistrationModelImpl
 			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 
 	}
+
+	private static boolean _entityCacheEnabled;
+	private static boolean _finderCacheEnabled;
 
 	private long _meetupsRegistrationId;
 	private long _companyId;

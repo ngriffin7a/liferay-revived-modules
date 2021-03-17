@@ -14,7 +14,7 @@
 
 package com.liferay.social.networking.service.base;
 
-import com.liferay.portal.kernel.bean.BeanReference;
+import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdate;
@@ -32,14 +32,11 @@ import com.liferay.portal.kernel.module.framework.service.IdentifiableOSGiServic
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
-import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
-import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
-import com.liferay.portal.kernel.service.persistence.ImagePersistence;
-import com.liferay.portal.kernel.service.persistence.UserPersistence;
+import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.social.networking.model.MeetupsEntry;
 import com.liferay.social.networking.service.MeetupsEntryLocalService;
 import com.liferay.social.networking.service.persistence.MeetupsEntryPersistence;
@@ -52,6 +49,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.sql.DataSource;
+
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * Provides the base implementation for the meetups entry local service.
@@ -66,7 +65,7 @@ import javax.sql.DataSource;
  */
 public abstract class MeetupsEntryLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements IdentifiableOSGiService, MeetupsEntryLocalService {
+	implements AopService, IdentifiableOSGiService, MeetupsEntryLocalService {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -76,6 +75,10 @@ public abstract class MeetupsEntryLocalServiceBaseImpl
 
 	/**
 	 * Adds the meetups entry to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect MeetupsEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param meetupsEntry the meetups entry
 	 * @return the meetups entry that was added
@@ -103,6 +106,10 @@ public abstract class MeetupsEntryLocalServiceBaseImpl
 	/**
 	 * Deletes the meetups entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect MeetupsEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param meetupsEntryId the primary key of the meetups entry
 	 * @return the meetups entry that was removed
 	 * @throws PortalException if a meetups entry with the primary key could not be found
@@ -117,6 +124,10 @@ public abstract class MeetupsEntryLocalServiceBaseImpl
 
 	/**
 	 * Deletes the meetups entry from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect MeetupsEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param meetupsEntry the meetups entry
 	 * @return the meetups entry that was removed
@@ -286,6 +297,10 @@ public abstract class MeetupsEntryLocalServiceBaseImpl
 			(MeetupsEntry)persistedModel);
 	}
 
+	public BasePersistence<MeetupsEntry> getBasePersistence() {
+		return meetupsEntryPersistence;
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -325,6 +340,10 @@ public abstract class MeetupsEntryLocalServiceBaseImpl
 	/**
 	 * Updates the meetups entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect MeetupsEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param meetupsEntry the meetups entry
 	 * @return the meetups entry that was updated
 	 */
@@ -334,328 +353,17 @@ public abstract class MeetupsEntryLocalServiceBaseImpl
 		return meetupsEntryPersistence.update(meetupsEntry);
 	}
 
-	/**
-	 * Returns the meetups entry local service.
-	 *
-	 * @return the meetups entry local service
-	 */
-	public MeetupsEntryLocalService getMeetupsEntryLocalService() {
-		return meetupsEntryLocalService;
+	@Override
+	public Class<?>[] getAopInterfaces() {
+		return new Class<?>[] {
+			MeetupsEntryLocalService.class, IdentifiableOSGiService.class,
+			PersistedModelLocalService.class
+		};
 	}
 
-	/**
-	 * Sets the meetups entry local service.
-	 *
-	 * @param meetupsEntryLocalService the meetups entry local service
-	 */
-	public void setMeetupsEntryLocalService(
-		MeetupsEntryLocalService meetupsEntryLocalService) {
-
-		this.meetupsEntryLocalService = meetupsEntryLocalService;
-	}
-
-	/**
-	 * Returns the meetups entry persistence.
-	 *
-	 * @return the meetups entry persistence
-	 */
-	public MeetupsEntryPersistence getMeetupsEntryPersistence() {
-		return meetupsEntryPersistence;
-	}
-
-	/**
-	 * Sets the meetups entry persistence.
-	 *
-	 * @param meetupsEntryPersistence the meetups entry persistence
-	 */
-	public void setMeetupsEntryPersistence(
-		MeetupsEntryPersistence meetupsEntryPersistence) {
-
-		this.meetupsEntryPersistence = meetupsEntryPersistence;
-	}
-
-	/**
-	 * Returns the meetups registration local service.
-	 *
-	 * @return the meetups registration local service
-	 */
-	public com.liferay.social.networking.service.MeetupsRegistrationLocalService
-		getMeetupsRegistrationLocalService() {
-
-		return meetupsRegistrationLocalService;
-	}
-
-	/**
-	 * Sets the meetups registration local service.
-	 *
-	 * @param meetupsRegistrationLocalService the meetups registration local service
-	 */
-	public void setMeetupsRegistrationLocalService(
-		com.liferay.social.networking.service.MeetupsRegistrationLocalService
-			meetupsRegistrationLocalService) {
-
-		this.meetupsRegistrationLocalService = meetupsRegistrationLocalService;
-	}
-
-	/**
-	 * Returns the meetups registration persistence.
-	 *
-	 * @return the meetups registration persistence
-	 */
-	public MeetupsRegistrationPersistence getMeetupsRegistrationPersistence() {
-		return meetupsRegistrationPersistence;
-	}
-
-	/**
-	 * Sets the meetups registration persistence.
-	 *
-	 * @param meetupsRegistrationPersistence the meetups registration persistence
-	 */
-	public void setMeetupsRegistrationPersistence(
-		MeetupsRegistrationPersistence meetupsRegistrationPersistence) {
-
-		this.meetupsRegistrationPersistence = meetupsRegistrationPersistence;
-	}
-
-	/**
-	 * Returns the wall entry local service.
-	 *
-	 * @return the wall entry local service
-	 */
-	public com.liferay.social.networking.service.WallEntryLocalService
-		getWallEntryLocalService() {
-
-		return wallEntryLocalService;
-	}
-
-	/**
-	 * Sets the wall entry local service.
-	 *
-	 * @param wallEntryLocalService the wall entry local service
-	 */
-	public void setWallEntryLocalService(
-		com.liferay.social.networking.service.WallEntryLocalService
-			wallEntryLocalService) {
-
-		this.wallEntryLocalService = wallEntryLocalService;
-	}
-
-	/**
-	 * Returns the wall entry persistence.
-	 *
-	 * @return the wall entry persistence
-	 */
-	public WallEntryPersistence getWallEntryPersistence() {
-		return wallEntryPersistence;
-	}
-
-	/**
-	 * Sets the wall entry persistence.
-	 *
-	 * @param wallEntryPersistence the wall entry persistence
-	 */
-	public void setWallEntryPersistence(
-		WallEntryPersistence wallEntryPersistence) {
-
-		this.wallEntryPersistence = wallEntryPersistence;
-	}
-
-	/**
-	 * Returns the wall entry finder.
-	 *
-	 * @return the wall entry finder
-	 */
-	public WallEntryFinder getWallEntryFinder() {
-		return wallEntryFinder;
-	}
-
-	/**
-	 * Sets the wall entry finder.
-	 *
-	 * @param wallEntryFinder the wall entry finder
-	 */
-	public void setWallEntryFinder(WallEntryFinder wallEntryFinder) {
-		this.wallEntryFinder = wallEntryFinder;
-	}
-
-	/**
-	 * Returns the counter local service.
-	 *
-	 * @return the counter local service
-	 */
-	public com.liferay.counter.kernel.service.CounterLocalService
-		getCounterLocalService() {
-
-		return counterLocalService;
-	}
-
-	/**
-	 * Sets the counter local service.
-	 *
-	 * @param counterLocalService the counter local service
-	 */
-	public void setCounterLocalService(
-		com.liferay.counter.kernel.service.CounterLocalService
-			counterLocalService) {
-
-		this.counterLocalService = counterLocalService;
-	}
-
-	/**
-	 * Returns the class name local service.
-	 *
-	 * @return the class name local service
-	 */
-	public com.liferay.portal.kernel.service.ClassNameLocalService
-		getClassNameLocalService() {
-
-		return classNameLocalService;
-	}
-
-	/**
-	 * Sets the class name local service.
-	 *
-	 * @param classNameLocalService the class name local service
-	 */
-	public void setClassNameLocalService(
-		com.liferay.portal.kernel.service.ClassNameLocalService
-			classNameLocalService) {
-
-		this.classNameLocalService = classNameLocalService;
-	}
-
-	/**
-	 * Returns the class name persistence.
-	 *
-	 * @return the class name persistence
-	 */
-	public ClassNamePersistence getClassNamePersistence() {
-		return classNamePersistence;
-	}
-
-	/**
-	 * Sets the class name persistence.
-	 *
-	 * @param classNamePersistence the class name persistence
-	 */
-	public void setClassNamePersistence(
-		ClassNamePersistence classNamePersistence) {
-
-		this.classNamePersistence = classNamePersistence;
-	}
-
-	/**
-	 * Returns the image local service.
-	 *
-	 * @return the image local service
-	 */
-	public com.liferay.portal.kernel.service.ImageLocalService
-		getImageLocalService() {
-
-		return imageLocalService;
-	}
-
-	/**
-	 * Sets the image local service.
-	 *
-	 * @param imageLocalService the image local service
-	 */
-	public void setImageLocalService(
-		com.liferay.portal.kernel.service.ImageLocalService imageLocalService) {
-
-		this.imageLocalService = imageLocalService;
-	}
-
-	/**
-	 * Returns the image persistence.
-	 *
-	 * @return the image persistence
-	 */
-	public ImagePersistence getImagePersistence() {
-		return imagePersistence;
-	}
-
-	/**
-	 * Sets the image persistence.
-	 *
-	 * @param imagePersistence the image persistence
-	 */
-	public void setImagePersistence(ImagePersistence imagePersistence) {
-		this.imagePersistence = imagePersistence;
-	}
-
-	/**
-	 * Returns the resource local service.
-	 *
-	 * @return the resource local service
-	 */
-	public com.liferay.portal.kernel.service.ResourceLocalService
-		getResourceLocalService() {
-
-		return resourceLocalService;
-	}
-
-	/**
-	 * Sets the resource local service.
-	 *
-	 * @param resourceLocalService the resource local service
-	 */
-	public void setResourceLocalService(
-		com.liferay.portal.kernel.service.ResourceLocalService
-			resourceLocalService) {
-
-		this.resourceLocalService = resourceLocalService;
-	}
-
-	/**
-	 * Returns the user local service.
-	 *
-	 * @return the user local service
-	 */
-	public com.liferay.portal.kernel.service.UserLocalService
-		getUserLocalService() {
-
-		return userLocalService;
-	}
-
-	/**
-	 * Sets the user local service.
-	 *
-	 * @param userLocalService the user local service
-	 */
-	public void setUserLocalService(
-		com.liferay.portal.kernel.service.UserLocalService userLocalService) {
-
-		this.userLocalService = userLocalService;
-	}
-
-	/**
-	 * Returns the user persistence.
-	 *
-	 * @return the user persistence
-	 */
-	public UserPersistence getUserPersistence() {
-		return userPersistence;
-	}
-
-	/**
-	 * Sets the user persistence.
-	 *
-	 * @param userPersistence the user persistence
-	 */
-	public void setUserPersistence(UserPersistence userPersistence) {
-		this.userPersistence = userPersistence;
-	}
-
-	public void afterPropertiesSet() {
-		persistedModelLocalServiceRegistry.register(
-			"com.liferay.social.networking.model.MeetupsEntry",
-			meetupsEntryLocalService);
-	}
-
-	public void destroy() {
-		persistedModelLocalServiceRegistry.unregister(
-			"com.liferay.social.networking.model.MeetupsEntry");
+	@Override
+	public void setAopProxy(Object aopProxy) {
+		meetupsEntryLocalService = (MeetupsEntryLocalService)aopProxy;
 	}
 
 	/**
@@ -700,75 +408,38 @@ public abstract class MeetupsEntryLocalServiceBaseImpl
 		}
 	}
 
-	@BeanReference(type = MeetupsEntryLocalService.class)
 	protected MeetupsEntryLocalService meetupsEntryLocalService;
 
-	@BeanReference(type = MeetupsEntryPersistence.class)
+	@Reference
 	protected MeetupsEntryPersistence meetupsEntryPersistence;
 
-	@BeanReference(
-		type = com.liferay.social.networking.service.MeetupsRegistrationLocalService.class
-	)
-	protected
-		com.liferay.social.networking.service.MeetupsRegistrationLocalService
-			meetupsRegistrationLocalService;
-
-	@BeanReference(type = MeetupsRegistrationPersistence.class)
+	@Reference
 	protected MeetupsRegistrationPersistence meetupsRegistrationPersistence;
 
-	@BeanReference(
-		type = com.liferay.social.networking.service.WallEntryLocalService.class
-	)
-	protected com.liferay.social.networking.service.WallEntryLocalService
-		wallEntryLocalService;
-
-	@BeanReference(type = WallEntryPersistence.class)
+	@Reference
 	protected WallEntryPersistence wallEntryPersistence;
 
-	@BeanReference(type = WallEntryFinder.class)
+	@Reference
 	protected WallEntryFinder wallEntryFinder;
 
-	@ServiceReference(
-		type = com.liferay.counter.kernel.service.CounterLocalService.class
-	)
+	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService
 		counterLocalService;
 
-	@ServiceReference(
-		type = com.liferay.portal.kernel.service.ClassNameLocalService.class
-	)
+	@Reference
 	protected com.liferay.portal.kernel.service.ClassNameLocalService
 		classNameLocalService;
 
-	@ServiceReference(type = ClassNamePersistence.class)
-	protected ClassNamePersistence classNamePersistence;
-
-	@ServiceReference(
-		type = com.liferay.portal.kernel.service.ImageLocalService.class
-	)
+	@Reference
 	protected com.liferay.portal.kernel.service.ImageLocalService
 		imageLocalService;
 
-	@ServiceReference(type = ImagePersistence.class)
-	protected ImagePersistence imagePersistence;
-
-	@ServiceReference(
-		type = com.liferay.portal.kernel.service.ResourceLocalService.class
-	)
+	@Reference
 	protected com.liferay.portal.kernel.service.ResourceLocalService
 		resourceLocalService;
 
-	@ServiceReference(
-		type = com.liferay.portal.kernel.service.UserLocalService.class
-	)
+	@Reference
 	protected com.liferay.portal.kernel.service.UserLocalService
 		userLocalService;
-
-	@ServiceReference(type = UserPersistence.class)
-	protected UserPersistence userPersistence;
-
-	@ServiceReference(type = PersistedModelLocalServiceRegistry.class)
-	protected PersistedModelLocalServiceRegistry
-		persistedModelLocalServiceRegistry;
 
 }

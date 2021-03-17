@@ -36,6 +36,10 @@ public class MeetupsRegistrationLocalServiceWrapper
 	/**
 	 * Adds the meetups registration to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect MeetupsRegistrationLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param meetupsRegistration the meetups registration
 	 * @return the meetups registration that was added
 	 */
@@ -66,6 +70,10 @@ public class MeetupsRegistrationLocalServiceWrapper
 	/**
 	 * Deletes the meetups registration with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect MeetupsRegistrationLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param meetupsRegistrationId the primary key of the meetups registration
 	 * @return the meetups registration that was removed
 	 * @throws PortalException if a meetups registration with the primary key could not be found
@@ -81,6 +89,10 @@ public class MeetupsRegistrationLocalServiceWrapper
 
 	/**
 	 * Deletes the meetups registration from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect MeetupsRegistrationLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param meetupsRegistration the meetups registration
 	 * @return the meetups registration that was removed
@@ -326,6 +338,10 @@ public class MeetupsRegistrationLocalServiceWrapper
 
 	/**
 	 * Updates the meetups registration in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect MeetupsRegistrationLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param meetupsRegistration the meetups registration
 	 * @return the meetups registration that was updated

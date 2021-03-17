@@ -16,6 +16,7 @@ package com.liferay.social.networking.service.impl;
 
 import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailService;
+import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -30,15 +31,30 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.social.networking.model.WallEntry;
 import com.liferay.social.networking.service.base.WallEntryLocalServiceBaseImpl;
-import com.liferay.social.networking.wall.social.WallActivityKeys;
 
-import java.util.List;
+import com.liferay.social.networking.wall.social.WallActivityKeys;
+import org.osgi.service.component.annotations.Component;
 
 import javax.mail.internet.InternetAddress;
+import java.util.List;
 
 /**
+ * The implementation of the wall entry local service.
+ *
+ * <p>
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the <code>com.liferay.social.networking.service.WallEntryLocalService</code> interface.
+ *
+ * <p>
+ * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+ * </p>
+ *
  * @author Brian Wing Shun Chan
+ * @see WallEntryLocalServiceBaseImpl
  */
+@Component(
+	property = "model.class.name=com.liferay.social.networking.model.WallEntry",
+	service = AopService.class
+)
 public class WallEntryLocalServiceImpl extends WallEntryLocalServiceBaseImpl {
 
 	@Override

@@ -1,22 +1,7 @@
 dependencies {
-	compileOnly group: "com.liferay", name: "com.liferay.blogs.api"
-	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel"
-	compileInclude group: "com.liferay.portal", name: "com.liferay.util.java"
-	compileOnly group: "com.liferay.portal", name: "com.liferay.util.taglib"
-	compileOnly group: "javax.portlet", name: "portlet-api"
-	compileOnly group: "javax.servlet", name: "javax.servlet-api"
-	compileOnly group: "javax.servlet.jsp", name: "javax.servlet.jsp-api", version: "2.3.3"
-	compileOnly group: "org.glassfish.web", name: "javax.servlet.jsp.jstl", version: "1.2.5"
-	compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations", version: "1.3.0"
-	// compileOnly project(":apps:foundation:frontend-taglib:frontend-taglib")
-	compileOnly group: "com.liferay", name: "com.liferay.frontend.taglib"
-	// compileOnly project(":apps:foundation:portal:portal-upgrade-api")
-	compileOnly group: "com.liferay", name: "com.liferay.portal.upgrade.api"
-	// compileOnly project(":apps:ip-geocoder:ip-geocoder-api")
+	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 	compileInclude group: "com.liferay", name: "com.liferay.ip.geocoder.api", version: "1.0.4"
 	compileOnly project(":modules:social-networking:social-networking-api")
-	// compileOnly project(":core:petra:petra-lang")
-	compileOnly group: "com.liferay", name: "com.liferay.petra.lang"
 	compileInclude group: "com.maxmind.geoip", name: "geoip-api", version: "1.3.1"
 	// TODO: After you ended up adding optional package imports for stuff like "net.fortuna.ical4j" in bnd.bnd you realized maybe the Jazzy spell checker was unnecessary too!
 	// So maybe try and get rid of it as a dependency everywhere it's used (not just this build.gradle) and add optional package imports to each bnd.bnd instead.

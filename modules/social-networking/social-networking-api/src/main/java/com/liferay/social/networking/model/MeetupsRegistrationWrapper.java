@@ -14,16 +14,12 @@
 
 package com.liferay.social.networking.model;
 
-import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.portal.kernel.model.ModelWrapper;
-import com.liferay.portal.kernel.service.ServiceContext;
-
-import java.io.Serializable;
+import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * <p>
@@ -35,20 +31,11 @@ import java.util.Objects;
  * @generated
  */
 public class MeetupsRegistrationWrapper
+	extends BaseModelWrapper<MeetupsRegistration>
 	implements MeetupsRegistration, ModelWrapper<MeetupsRegistration> {
 
 	public MeetupsRegistrationWrapper(MeetupsRegistration meetupsRegistration) {
-		_meetupsRegistration = meetupsRegistration;
-	}
-
-	@Override
-	public Class<?> getModelClass() {
-		return MeetupsRegistration.class;
-	}
-
-	@Override
-	public String getModelClassName() {
-		return MeetupsRegistration.class.getName();
+		super(meetupsRegistration);
 	}
 
 	@Override
@@ -126,17 +113,6 @@ public class MeetupsRegistrationWrapper
 		}
 	}
 
-	@Override
-	public Object clone() {
-		return new MeetupsRegistrationWrapper(
-			(MeetupsRegistration)_meetupsRegistration.clone());
-	}
-
-	@Override
-	public int compareTo(MeetupsRegistration meetupsRegistration) {
-		return _meetupsRegistration.compareTo(meetupsRegistration);
-	}
-
 	/**
 	 * Returns the comments of this meetups registration.
 	 *
@@ -144,7 +120,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public String getComments() {
-		return _meetupsRegistration.getComments();
+		return model.getComments();
 	}
 
 	/**
@@ -154,7 +130,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public long getCompanyId() {
-		return _meetupsRegistration.getCompanyId();
+		return model.getCompanyId();
 	}
 
 	/**
@@ -164,12 +140,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public Date getCreateDate() {
-		return _meetupsRegistration.getCreateDate();
-	}
-
-	@Override
-	public ExpandoBridge getExpandoBridge() {
-		return _meetupsRegistration.getExpandoBridge();
+		return model.getCreateDate();
 	}
 
 	/**
@@ -179,7 +150,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public long getMeetupsEntryId() {
-		return _meetupsRegistration.getMeetupsEntryId();
+		return model.getMeetupsEntryId();
 	}
 
 	/**
@@ -189,7 +160,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public long getMeetupsRegistrationId() {
-		return _meetupsRegistration.getMeetupsRegistrationId();
+		return model.getMeetupsRegistrationId();
 	}
 
 	/**
@@ -199,7 +170,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public Date getModifiedDate() {
-		return _meetupsRegistration.getModifiedDate();
+		return model.getModifiedDate();
 	}
 
 	/**
@@ -209,12 +180,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public long getPrimaryKey() {
-		return _meetupsRegistration.getPrimaryKey();
-	}
-
-	@Override
-	public Serializable getPrimaryKeyObj() {
-		return _meetupsRegistration.getPrimaryKeyObj();
+		return model.getPrimaryKey();
 	}
 
 	/**
@@ -224,7 +190,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public int getStatus() {
-		return _meetupsRegistration.getStatus();
+		return model.getStatus();
 	}
 
 	/**
@@ -234,7 +200,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public long getUserId() {
-		return _meetupsRegistration.getUserId();
+		return model.getUserId();
 	}
 
 	/**
@@ -244,7 +210,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public String getUserName() {
-		return _meetupsRegistration.getUserName();
+		return model.getUserName();
 	}
 
 	/**
@@ -254,37 +220,12 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public String getUserUuid() {
-		return _meetupsRegistration.getUserUuid();
-	}
-
-	@Override
-	public int hashCode() {
-		return _meetupsRegistration.hashCode();
-	}
-
-	@Override
-	public boolean isCachedModel() {
-		return _meetupsRegistration.isCachedModel();
-	}
-
-	@Override
-	public boolean isEscapedModel() {
-		return _meetupsRegistration.isEscapedModel();
-	}
-
-	@Override
-	public boolean isNew() {
-		return _meetupsRegistration.isNew();
+		return model.getUserUuid();
 	}
 
 	@Override
 	public void persist() {
-		_meetupsRegistration.persist();
-	}
-
-	@Override
-	public void setCachedModel(boolean cachedModel) {
-		_meetupsRegistration.setCachedModel(cachedModel);
+		model.persist();
 	}
 
 	/**
@@ -294,7 +235,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public void setComments(String comments) {
-		_meetupsRegistration.setComments(comments);
+		model.setComments(comments);
 	}
 
 	/**
@@ -304,7 +245,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public void setCompanyId(long companyId) {
-		_meetupsRegistration.setCompanyId(companyId);
+		model.setCompanyId(companyId);
 	}
 
 	/**
@@ -314,24 +255,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public void setCreateDate(Date createDate) {
-		_meetupsRegistration.setCreateDate(createDate);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
-
-		_meetupsRegistration.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
-		_meetupsRegistration.setExpandoBridgeAttributes(expandoBridge);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
-		_meetupsRegistration.setExpandoBridgeAttributes(serviceContext);
+		model.setCreateDate(createDate);
 	}
 
 	/**
@@ -341,7 +265,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public void setMeetupsEntryId(long meetupsEntryId) {
-		_meetupsRegistration.setMeetupsEntryId(meetupsEntryId);
+		model.setMeetupsEntryId(meetupsEntryId);
 	}
 
 	/**
@@ -351,7 +275,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public void setMeetupsRegistrationId(long meetupsRegistrationId) {
-		_meetupsRegistration.setMeetupsRegistrationId(meetupsRegistrationId);
+		model.setMeetupsRegistrationId(meetupsRegistrationId);
 	}
 
 	/**
@@ -361,12 +285,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
-		_meetupsRegistration.setModifiedDate(modifiedDate);
-	}
-
-	@Override
-	public void setNew(boolean n) {
-		_meetupsRegistration.setNew(n);
+		model.setModifiedDate(modifiedDate);
 	}
 
 	/**
@@ -376,12 +295,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		_meetupsRegistration.setPrimaryKey(primaryKey);
-	}
-
-	@Override
-	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		_meetupsRegistration.setPrimaryKeyObj(primaryKeyObj);
+		model.setPrimaryKey(primaryKey);
 	}
 
 	/**
@@ -391,7 +305,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public void setStatus(int status) {
-		_meetupsRegistration.setStatus(status);
+		model.setStatus(status);
 	}
 
 	/**
@@ -401,7 +315,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public void setUserId(long userId) {
-		_meetupsRegistration.setUserId(userId);
+		model.setUserId(userId);
 	}
 
 	/**
@@ -411,7 +325,7 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public void setUserName(String userName) {
-		_meetupsRegistration.setUserName(userName);
+		model.setUserName(userName);
 	}
 
 	/**
@@ -421,81 +335,14 @@ public class MeetupsRegistrationWrapper
 	 */
 	@Override
 	public void setUserUuid(String userUuid) {
-		_meetupsRegistration.setUserUuid(userUuid);
+		model.setUserUuid(userUuid);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<MeetupsRegistration>
-		toCacheModel() {
+	protected MeetupsRegistrationWrapper wrap(
+		MeetupsRegistration meetupsRegistration) {
 
-		return _meetupsRegistration.toCacheModel();
+		return new MeetupsRegistrationWrapper(meetupsRegistration);
 	}
-
-	@Override
-	public MeetupsRegistration toEscapedModel() {
-		return new MeetupsRegistrationWrapper(
-			_meetupsRegistration.toEscapedModel());
-	}
-
-	@Override
-	public String toString() {
-		return _meetupsRegistration.toString();
-	}
-
-	@Override
-	public MeetupsRegistration toUnescapedModel() {
-		return new MeetupsRegistrationWrapper(
-			_meetupsRegistration.toUnescapedModel());
-	}
-
-	@Override
-	public String toXmlString() {
-		return _meetupsRegistration.toXmlString();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (!(obj instanceof MeetupsRegistrationWrapper)) {
-			return false;
-		}
-
-		MeetupsRegistrationWrapper meetupsRegistrationWrapper =
-			(MeetupsRegistrationWrapper)obj;
-
-		if (Objects.equals(
-				_meetupsRegistration,
-				meetupsRegistrationWrapper._meetupsRegistration)) {
-
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public MeetupsRegistration getWrappedModel() {
-		return _meetupsRegistration;
-	}
-
-	@Override
-	public boolean isEntityCacheEnabled() {
-		return _meetupsRegistration.isEntityCacheEnabled();
-	}
-
-	@Override
-	public boolean isFinderCacheEnabled() {
-		return _meetupsRegistration.isFinderCacheEnabled();
-	}
-
-	@Override
-	public void resetOriginalValues() {
-		_meetupsRegistration.resetOriginalValues();
-	}
-
-	private final MeetupsRegistration _meetupsRegistration;
 
 }

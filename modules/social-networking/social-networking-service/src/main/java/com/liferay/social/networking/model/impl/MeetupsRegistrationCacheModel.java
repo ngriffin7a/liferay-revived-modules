@@ -14,9 +14,9 @@
 
 package com.liferay.social.networking.model.impl;
 
+import com.liferay.petra.lang.HashUtil;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
-import com.liferay.portal.kernel.util.HashUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.social.networking.model.MeetupsRegistration;
 
 import java.io.Externalizable;
@@ -36,17 +36,17 @@ public class MeetupsRegistrationCacheModel
 	implements CacheModel<MeetupsRegistration>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof MeetupsRegistrationCacheModel)) {
+		if (!(object instanceof MeetupsRegistrationCacheModel)) {
 			return false;
 		}
 
 		MeetupsRegistrationCacheModel meetupsRegistrationCacheModel =
-			(MeetupsRegistrationCacheModel)obj;
+			(MeetupsRegistrationCacheModel)object;
 
 		if (meetupsRegistrationId ==
 				meetupsRegistrationCacheModel.meetupsRegistrationId) {

@@ -14,9 +14,9 @@
 
 package com.liferay.social.networking.model.impl;
 
+import com.liferay.petra.lang.HashUtil;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
-import com.liferay.portal.kernel.util.HashUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.social.networking.model.WallEntry;
 
 import java.io.Externalizable;
@@ -36,16 +36,16 @@ public class WallEntryCacheModel
 	implements CacheModel<WallEntry>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof WallEntryCacheModel)) {
+		if (!(object instanceof WallEntryCacheModel)) {
 			return false;
 		}
 
-		WallEntryCacheModel wallEntryCacheModel = (WallEntryCacheModel)obj;
+		WallEntryCacheModel wallEntryCacheModel = (WallEntryCacheModel)object;
 
 		if (wallEntryId == wallEntryCacheModel.wallEntryId) {
 			return true;

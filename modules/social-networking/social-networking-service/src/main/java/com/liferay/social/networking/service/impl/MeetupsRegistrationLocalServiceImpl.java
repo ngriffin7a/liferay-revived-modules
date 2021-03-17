@@ -14,16 +14,36 @@
 
 package com.liferay.social.networking.service.impl;
 
+import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.social.networking.model.MeetupsRegistration;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.social.networking.model.MeetupsRegistration;
+
 import com.liferay.social.networking.service.base.MeetupsRegistrationLocalServiceBaseImpl;
+import org.osgi.service.component.annotations.Component;
 
 import java.util.List;
 
 /**
+ * The implementation of the meetups registration local service.
+ *
+ * <p>
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the <code>com.liferay.social.networking.service.MeetupsRegistrationLocalService</code> interface.
+ *
+ * <p>
+ * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+ * </p>
+ *
  * @author Brian Wing Shun Chan
+ * @see MeetupsRegistrationLocalServiceBaseImpl
  */
+@Component(
+	property = "model.class.name=com.liferay.social.networking.model.MeetupsRegistration",
+	service = AopService.class
+)
 public class MeetupsRegistrationLocalServiceImpl
 	extends MeetupsRegistrationLocalServiceBaseImpl {
 

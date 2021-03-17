@@ -14,16 +14,12 @@
 
 package com.liferay.social.networking.model;
 
-import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.portal.kernel.model.ModelWrapper;
-import com.liferay.portal.kernel.service.ServiceContext;
-
-import java.io.Serializable;
+import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * <p>
@@ -34,20 +30,12 @@ import java.util.Objects;
  * @see WallEntry
  * @generated
  */
-public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
+public class WallEntryWrapper
+	extends BaseModelWrapper<WallEntry>
+	implements ModelWrapper<WallEntry>, WallEntry {
 
 	public WallEntryWrapper(WallEntry wallEntry) {
-		_wallEntry = wallEntry;
-	}
-
-	@Override
-	public Class<?> getModelClass() {
-		return WallEntry.class;
-	}
-
-	@Override
-	public String getModelClassName() {
-		return WallEntry.class.getName();
+		super(wallEntry);
 	}
 
 	@Override
@@ -117,16 +105,6 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 		}
 	}
 
-	@Override
-	public Object clone() {
-		return new WallEntryWrapper((WallEntry)_wallEntry.clone());
-	}
-
-	@Override
-	public int compareTo(WallEntry wallEntry) {
-		return _wallEntry.compareTo(wallEntry);
-	}
-
 	/**
 	 * Returns the comments of this wall entry.
 	 *
@@ -134,7 +112,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public String getComments() {
-		return _wallEntry.getComments();
+		return model.getComments();
 	}
 
 	/**
@@ -144,7 +122,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public long getCompanyId() {
-		return _wallEntry.getCompanyId();
+		return model.getCompanyId();
 	}
 
 	/**
@@ -154,12 +132,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public Date getCreateDate() {
-		return _wallEntry.getCreateDate();
-	}
-
-	@Override
-	public ExpandoBridge getExpandoBridge() {
-		return _wallEntry.getExpandoBridge();
+		return model.getCreateDate();
 	}
 
 	/**
@@ -169,7 +142,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public long getGroupId() {
-		return _wallEntry.getGroupId();
+		return model.getGroupId();
 	}
 
 	/**
@@ -179,7 +152,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public Date getModifiedDate() {
-		return _wallEntry.getModifiedDate();
+		return model.getModifiedDate();
 	}
 
 	/**
@@ -189,12 +162,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public long getPrimaryKey() {
-		return _wallEntry.getPrimaryKey();
-	}
-
-	@Override
-	public Serializable getPrimaryKeyObj() {
-		return _wallEntry.getPrimaryKeyObj();
+		return model.getPrimaryKey();
 	}
 
 	/**
@@ -204,7 +172,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public long getUserId() {
-		return _wallEntry.getUserId();
+		return model.getUserId();
 	}
 
 	/**
@@ -214,7 +182,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public String getUserName() {
-		return _wallEntry.getUserName();
+		return model.getUserName();
 	}
 
 	/**
@@ -224,7 +192,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public String getUserUuid() {
-		return _wallEntry.getUserUuid();
+		return model.getUserUuid();
 	}
 
 	/**
@@ -234,37 +202,12 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public long getWallEntryId() {
-		return _wallEntry.getWallEntryId();
-	}
-
-	@Override
-	public int hashCode() {
-		return _wallEntry.hashCode();
-	}
-
-	@Override
-	public boolean isCachedModel() {
-		return _wallEntry.isCachedModel();
-	}
-
-	@Override
-	public boolean isEscapedModel() {
-		return _wallEntry.isEscapedModel();
-	}
-
-	@Override
-	public boolean isNew() {
-		return _wallEntry.isNew();
+		return model.getWallEntryId();
 	}
 
 	@Override
 	public void persist() {
-		_wallEntry.persist();
-	}
-
-	@Override
-	public void setCachedModel(boolean cachedModel) {
-		_wallEntry.setCachedModel(cachedModel);
+		model.persist();
 	}
 
 	/**
@@ -274,7 +217,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public void setComments(String comments) {
-		_wallEntry.setComments(comments);
+		model.setComments(comments);
 	}
 
 	/**
@@ -284,7 +227,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public void setCompanyId(long companyId) {
-		_wallEntry.setCompanyId(companyId);
+		model.setCompanyId(companyId);
 	}
 
 	/**
@@ -294,24 +237,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public void setCreateDate(Date createDate) {
-		_wallEntry.setCreateDate(createDate);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
-
-		_wallEntry.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
-		_wallEntry.setExpandoBridgeAttributes(expandoBridge);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
-		_wallEntry.setExpandoBridgeAttributes(serviceContext);
+		model.setCreateDate(createDate);
 	}
 
 	/**
@@ -321,7 +247,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public void setGroupId(long groupId) {
-		_wallEntry.setGroupId(groupId);
+		model.setGroupId(groupId);
 	}
 
 	/**
@@ -331,12 +257,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
-		_wallEntry.setModifiedDate(modifiedDate);
-	}
-
-	@Override
-	public void setNew(boolean n) {
-		_wallEntry.setNew(n);
+		model.setModifiedDate(modifiedDate);
 	}
 
 	/**
@@ -346,12 +267,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		_wallEntry.setPrimaryKey(primaryKey);
-	}
-
-	@Override
-	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		_wallEntry.setPrimaryKeyObj(primaryKeyObj);
+		model.setPrimaryKey(primaryKey);
 	}
 
 	/**
@@ -361,7 +277,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public void setUserId(long userId) {
-		_wallEntry.setUserId(userId);
+		model.setUserId(userId);
 	}
 
 	/**
@@ -371,7 +287,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public void setUserName(String userName) {
-		_wallEntry.setUserName(userName);
+		model.setUserName(userName);
 	}
 
 	/**
@@ -381,7 +297,7 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public void setUserUuid(String userUuid) {
-		_wallEntry.setUserUuid(userUuid);
+		model.setUserUuid(userUuid);
 	}
 
 	/**
@@ -391,75 +307,12 @@ public class WallEntryWrapper implements ModelWrapper<WallEntry>, WallEntry {
 	 */
 	@Override
 	public void setWallEntryId(long wallEntryId) {
-		_wallEntry.setWallEntryId(wallEntryId);
+		model.setWallEntryId(wallEntryId);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<WallEntry>
-		toCacheModel() {
-
-		return _wallEntry.toCacheModel();
+	protected WallEntryWrapper wrap(WallEntry wallEntry) {
+		return new WallEntryWrapper(wallEntry);
 	}
-
-	@Override
-	public WallEntry toEscapedModel() {
-		return new WallEntryWrapper(_wallEntry.toEscapedModel());
-	}
-
-	@Override
-	public String toString() {
-		return _wallEntry.toString();
-	}
-
-	@Override
-	public WallEntry toUnescapedModel() {
-		return new WallEntryWrapper(_wallEntry.toUnescapedModel());
-	}
-
-	@Override
-	public String toXmlString() {
-		return _wallEntry.toXmlString();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (!(obj instanceof WallEntryWrapper)) {
-			return false;
-		}
-
-		WallEntryWrapper wallEntryWrapper = (WallEntryWrapper)obj;
-
-		if (Objects.equals(_wallEntry, wallEntryWrapper._wallEntry)) {
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public WallEntry getWrappedModel() {
-		return _wallEntry;
-	}
-
-	@Override
-	public boolean isEntityCacheEnabled() {
-		return _wallEntry.isEntityCacheEnabled();
-	}
-
-	@Override
-	public boolean isFinderCacheEnabled() {
-		return _wallEntry.isFinderCacheEnabled();
-	}
-
-	@Override
-	public void resetOriginalValues() {
-		_wallEntry.resetOriginalValues();
-	}
-
-	private final WallEntry _wallEntry;
 
 }

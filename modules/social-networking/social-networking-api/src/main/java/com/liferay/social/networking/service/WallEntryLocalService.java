@@ -14,8 +14,6 @@
 
 package com.liferay.social.networking.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
@@ -38,6 +36,8 @@ import java.io.Serializable;
 
 import java.util.List;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * Provides the local service interface for WallEntry. Methods of this
  * service will not have security checks based on the propagated JAAS
@@ -59,7 +59,7 @@ public interface WallEntryLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link WallEntryLocalServiceUtil} to access the wall entry local service. Add custom service methods to <code>com.liferay.social.networking.service.impl.WallEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.social.networking.service.impl.WallEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the wall entry local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link WallEntryLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public WallEntry addWallEntry(
 			long groupId, long userId, String comments,
@@ -68,6 +68,10 @@ public interface WallEntryLocalService
 
 	/**
 	 * Adds the wall entry to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect WallEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param wallEntry the wall entry
 	 * @return the wall entry that was added
@@ -96,6 +100,10 @@ public interface WallEntryLocalService
 	/**
 	 * Deletes the wall entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect WallEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param wallEntryId the primary key of the wall entry
 	 * @return the wall entry that was removed
 	 * @throws PortalException if a wall entry with the primary key could not be found
@@ -105,6 +113,10 @@ public interface WallEntryLocalService
 
 	/**
 	 * Deletes the wall entry from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect WallEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param wallEntry the wall entry
 	 * @return the wall entry that was removed
@@ -256,6 +268,10 @@ public interface WallEntryLocalService
 
 	/**
 	 * Updates the wall entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect WallEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param wallEntry the wall entry
 	 * @return the wall entry that was updated
