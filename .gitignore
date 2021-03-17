@@ -8,7 +8,6 @@
 **/build
 **/build_gradle
 **/node_modules
-**/test-classes
 **/test-coverage
 **/tmp
 **/.web_bundle_build
