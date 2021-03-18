@@ -24,6 +24,7 @@ import com.liferay.social.networking.model.WallEntry;
 import com.liferay.social.networking.model.impl.WallEntryImpl;
 import com.liferay.social.networking.service.persistence.WallEntryFinder;
 import com.liferay.util.dao.orm.CustomSQLUtil;
+import org.osgi.service.component.annotations.Component;
 
 import java.util.Iterator;
 import java.util.List;
@@ -31,6 +32,7 @@ import java.util.List;
 /**
  * @author Brian Wing Shun Chan
  */
+@Component(service=WallEntryFinder.class)
 public class WallEntryFinderImpl
 	extends WallEntryFinderBaseImpl implements WallEntryFinder {
 

@@ -7,4 +7,5 @@ dependencies {
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 	compileOnly group: "javax.mail", name: "javax.mail-api", version: "1.6.2"
 	compileOnly project(":modules:social-networking:social-networking-api")
+	compileInclude group: "com.liferay.portal", name: "com.liferay.util.java"
 }

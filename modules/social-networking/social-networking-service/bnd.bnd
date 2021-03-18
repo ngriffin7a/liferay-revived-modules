@@ -10,3 +10,4 @@ Import-Package:\
 	org.apache.poi.hssf.usermodel;resolution:=optional,\
 	org.apache.poi.ss.usermodel;resolution:=optional,\
 	*
+-dsannotations-options: inherit

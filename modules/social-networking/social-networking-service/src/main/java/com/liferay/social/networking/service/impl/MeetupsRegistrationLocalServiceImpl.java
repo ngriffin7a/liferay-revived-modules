@@ -18,9 +18,6 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.social.networking.model.MeetupsRegistration;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.User;
-import com.liferay.social.networking.model.MeetupsRegistration;
 
 import com.liferay.social.networking.service.base.MeetupsRegistrationLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
