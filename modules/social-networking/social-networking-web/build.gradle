@@ -1,4 +1,5 @@
 dependencies {
+	compileOnly group: "com.liferay", name: "com.liferay.rss.api"
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 	compileInclude group: "com.liferay", name: "com.liferay.ip.geocoder.api", version: "1.0.4"
 	compileOnly project(":modules:social-networking:social-networking-api")
