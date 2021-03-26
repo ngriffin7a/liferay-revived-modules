@@ -74,13 +74,10 @@ public class WallPortlet extends MVCPortlet {
 		Group group = _groupLocalService.getGroup(
 			themeDisplay.getScopeGroupId());
 
-		User user = null;
+		User user = themeDisplay.getUser();
 
 		if (group.isUser()) {
 			user = _userLocalService.getUserById(group.getClassPK());
-		}
-		else {
-			return;
 		}
 
 		if ((themeDisplay.getUserId() != user.getUserId()) &&

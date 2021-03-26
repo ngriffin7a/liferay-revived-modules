@@ -16,6 +16,12 @@
 
 <%@ include file="/init.jsp" %>
 
+	<c:if test="<%= user2 == null %>">		
+		<%
+			user2 = user;
+		%>
+	</c:if>
+
 <c:choose>
 	<c:when test="<%= user2 == null %>">
 		<div class="alert alert-error">

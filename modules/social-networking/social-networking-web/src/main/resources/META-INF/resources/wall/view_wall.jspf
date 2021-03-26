@@ -70,7 +70,9 @@
 
 		List<WallEntry> results = null;
 
-		if (wallToWallUser != null) {
+		if (!group.isUser()){
+			results = WallEntryLocalServiceUtil.getWallEntries(group.getGroupId(), searchContainer.getStart(), searchContainer.getEnd());
+		} else if (wallToWallUser != null) {
 			results = WallEntryLocalServiceUtil.getWallToWallEntries(group.getGroupId(), user.getGroup().getGroupId(), user2.getUserId(), user.getUserId(), searchContainer.getStart(), searchContainer.getEnd());
 		}
 		else {
@@ -80,132 +82,135 @@
 		searchContainer.setResults(results);
 		%>
 
-		<table class="table" width="100%">
+		<div id="wallposts" class="hidden">
 
-			<%
-			String myWallLayoutFriendlyURL = null;
+			<table class="table" width="100%">
 
-			for (int i = 0; i < results.size(); i++) {
-				WallEntry wallEntry = results.get(i);
+				<%
+				String myWallLayoutFriendlyURL = null;
 
-				wallEntry = wallEntry.toEscapedModel();
+				for (int i = 0; i < results.size(); i++) {
+					WallEntry wallEntry = results.get(i);
 
-				User wallUser = null;
+					wallEntry = wallEntry.toEscapedModel();
 
-				try {
-					wallUser = UserLocalServiceUtil.getUserById(wallEntry.getUserId());
-				}
-				catch (NoSuchUserException nsue) {
-					WallEntryLocalServiceUtil.deleteWallEntry(wallEntry.getWallEntryId());
+					User wallUser = null;
 
-					continue;
-				}
-			%>
+					try {
+						wallUser = UserLocalServiceUtil.getUserById(wallEntry.getUserId());
+					}
+					catch (NoSuchUserException nsue) {
+						WallEntryLocalServiceUtil.deleteWallEntry(wallEntry.getWallEntryId());
 
-				<c:if test="<%= i != 0 %>">
+						continue;
+					}
+				%>
+
+					<c:if test="<%= i != 0 %>">
+						<tr>
+							<td colspan="2">
+								<div class="separator"><!-- --></div>
+							</td>
+						</tr>
+					</c:if>
+
 					<tr>
-						<td colspan="2">
-							<div class="separator"><!-- --></div>
+						<td align="center" valign="top">
+							<liferay-ui:user-display
+								displayStyle="2"
+								userId="<%= wallEntry.getUserId() %>"
+								userName="<%= wallEntry.getUserName() %>"
+							/>
 						</td>
-					</tr>
-				</c:if>
+						<td valign="top" width="99%">
+							<div>
+								<%= wallEntry.getComments() %>
+							</div>
 
-				<tr>
-					<td align="center" valign="top">
-						<liferay-ui:user-display
-							displayStyle="2"
-							userId="<%= wallEntry.getUserId() %>"
-							userName="<%= wallEntry.getUserName() %>"
-						/>
-					</td>
-					<td valign="top" width="99%">
-						<div>
-							<%= wallEntry.getComments() %>
-						</div>
-
-						<br />
-
-						<div>
-							<liferay-ui:message arguments="<%= dateFormatDateTime.format(wallEntry.getCreateDate()) %>" key="posted-on-x" translateArguments="<%= false %>" />
-						</div>
-
-						<c:if test="<%= themeDisplay.isSignedIn() && UserPermissionUtil.contains(permissionChecker, user2.getUserId(), ActionKeys.UPDATE) %>">
 							<br />
 
-							<liferay-ui:icon-list>
+							<div>
+								<liferay-ui:message arguments="<%= dateFormatDateTime.format(wallEntry.getCreateDate()) %>" key="posted-on-x" translateArguments="<%= false %>" />
+							</div>
 
-								<%
-								String wallLayoutFriendlyURL = null;
-								String wallToWallHREF = null;
+							<c:if test="<%= themeDisplay.isSignedIn() && UserPermissionUtil.contains(permissionChecker, user2.getUserId(), ActionKeys.UPDATE) %>">
+								<br />
 
-								if ((wallUser.getUserId() != themeDisplay.getUserId()) || ((wallUser.getUserId() == themeDisplay.getUserId()) && Validator.isNull(myWallLayoutFriendlyURL))) {
-									wallLayoutFriendlyURL = WallUtil.getWallLayoutFriendlyURL(wallUser);
-
-									if (Validator.isNotNull(wallLayoutFriendlyURL) && (wallUser.getUserId() != themeDisplay.getUserId())) {
-										wallToWallHREF = WallUtil.getWallLink(wallUser, wallLayoutFriendlyURL, HtmlUtil.escapeURL(wallUser.getScreenName()), themeDisplay);
-									}
-								}
-								%>
-
-								<c:if test="<%= Validator.isNotNull(wallToWallHREF) && (wallToWallUser == null) %>">
-									<liferay-ui:icon
-										iconCssClass="icon-copy"
-										label="<%= true %>"
-										message="wall-to-wall"
-										method="get"
-										url="<%= wallToWallHREF %>"
-									/>
-								</c:if>
-
-								<%
-								String postMessage = null;
-
-								if (wallUser.getUserId() == themeDisplay.getUserId()) {
-									if (Validator.isNull(myWallLayoutFriendlyURL)) {
-										myWallLayoutFriendlyURL = wallLayoutFriendlyURL;
-									}
-									else {
-										wallLayoutFriendlyURL = myWallLayoutFriendlyURL;
-									}
-
-									postMessage = "write-on-my-wall";
-								}
-								else {
-									postMessage = LanguageUtil.format(request, "write-on-x-wall", HtmlUtil.escape(wallUser.getFirstName()), false);
-								}
-
-								String postHREF = themeDisplay.getPathFriendlyURLPublic() + StringPool.SLASH + wallUser.getScreenName() + wallLayoutFriendlyURL + "/-/wall";
-								%>
-
-								<liferay-ui:icon
-									iconCssClass="icon-comments"
-									label="<%= true %>"
-									message="<%= postMessage %>"
-									method="get"
-									url="<%= postHREF %>"
-								/>
-
-								<c:if test="<%= UserPermissionUtil.contains(permissionChecker, user2.getUserId(), ActionKeys.UPDATE) %>">
+								<liferay-ui:icon-list>
 
 									<%
-									String deleteHREF = "javascript:" + renderResponse.getNamespace() + "deleteWallEntry(" + wallEntry.getWallEntryId() + ");";
+									String wallLayoutFriendlyURL = null;
+									String wallToWallHREF = null;
+
+									if ((wallUser.getUserId() != themeDisplay.getUserId()) || ((wallUser.getUserId() == themeDisplay.getUserId()) && Validator.isNull(myWallLayoutFriendlyURL))) {
+										wallLayoutFriendlyURL = WallUtil.getWallLayoutFriendlyURL(wallUser);
+
+										if (Validator.isNotNull(wallLayoutFriendlyURL) && (wallUser.getUserId() != themeDisplay.getUserId())) {
+											wallToWallHREF = WallUtil.getWallLink(wallUser, wallLayoutFriendlyURL, HtmlUtil.escapeURL(wallUser.getScreenName()), themeDisplay);
+										}
+									}
 									%>
 
-									<liferay-ui:icon-delete
+									<c:if test="<%= Validator.isNotNull(wallToWallHREF) && (wallToWallUser == null) %>">
+										<liferay-ui:icon
+											iconCssClass="icon-copy"
+											label="<%= true %>"
+											message="wall-to-wall"
+											method="get"
+											url="<%= wallToWallHREF %>"
+										/>
+									</c:if>
+
+									<%
+									String postMessage = null;
+
+									if (wallUser.getUserId() == themeDisplay.getUserId()) {
+										if (Validator.isNull(myWallLayoutFriendlyURL)) {
+											myWallLayoutFriendlyURL = wallLayoutFriendlyURL;
+										}
+										else {
+											wallLayoutFriendlyURL = myWallLayoutFriendlyURL;
+										}
+
+										postMessage = "write-on-my-wall";
+									}
+									else {
+										postMessage = LanguageUtil.format(request, "write-on-x-wall", HtmlUtil.escape(wallUser.getFirstName()), false);
+									}
+
+									String postHREF = themeDisplay.getPathFriendlyURLPublic() + StringPool.SLASH + wallUser.getScreenName() + wallLayoutFriendlyURL + "/-/wall";
+									%>
+
+									<liferay-ui:icon
+										iconCssClass="icon-comments"
 										label="<%= true %>"
-										url="<%= deleteHREF %>"
+										message="<%= postMessage %>"
+										method="get"
+										url="<%= postHREF %>"
 									/>
-								</c:if>
-							</liferay-ui:icon-list>
-						</c:if>
-					</td>
-				</tr>
 
-			<%
-			}
-			%>
+									<c:if test="<%= UserPermissionUtil.contains(permissionChecker, user2.getUserId(), ActionKeys.UPDATE) %>">
 
-		</table>
+										<%
+										String deleteHREF = "javascript:" + renderResponse.getNamespace() + "deleteWallEntry(" + wallEntry.getWallEntryId() + ");";
+										%>
+
+										<liferay-ui:icon-delete
+											label="<%= true %>"
+											url="<%= deleteHREF %>"
+										/>
+									</c:if>
+								</liferay-ui:icon-list>
+							</c:if>
+						</td>
+					</tr>
+
+				<%
+				}
+				%>
+
+			</table>
+		</div>
 
 		<c:if test="<%= results.size() > 0 %>">
 			<div class="separator"><!-- --></div>

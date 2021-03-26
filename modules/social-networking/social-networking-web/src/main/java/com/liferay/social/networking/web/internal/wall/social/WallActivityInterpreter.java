@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ResourceBundleLoader;
 import com.liferay.portal.kernel.util.ResourceBundleLoaderUtil;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.social.kernel.model.BaseSocialActivityInterpreter;
 import com.liferay.social.kernel.model.SocialActivity;
 import com.liferay.social.kernel.model.SocialActivityInterpreter;
@@ -71,6 +72,10 @@ public class WallActivityInterpreter extends BaseSocialActivityInterpreter {
 			SocialActivity activity, ServiceContext serviceContext)
 		throws Exception {
 
+		if (activity.getGroupId() == activity.getReceiverUserId()) {
+			return "";
+		}
+
 		User receiverUser = _userLocalService.getUserById(
 			activity.getReceiverUserId());
 
@@ -107,6 +112,13 @@ public class WallActivityInterpreter extends BaseSocialActivityInterpreter {
 		String receiverUserName = getUserName(
 			activity.getReceiverUserId(), serviceContext);
 
+		if (activity.getGroupId() == activity.getReceiverUserId()) {
+			if (Validator.isNull(groupName)) {
+				groupName = getGroupName(activity.getGroupId(), serviceContext);
+			}
+			receiverUserName = groupName;
+		}
+
 		return new Object[] {creatorUserName, receiverUserName};
 	}
 
@@ -117,6 +129,9 @@ public class WallActivityInterpreter extends BaseSocialActivityInterpreter {
 		int activityType = activity.getType();
 
 		if (activityType == WallActivityKeys.ADD_ENTRY) {
+			if (activity.getGroupId() == activity.getReceiverUserId()) {
+				return "activity-social-networking-site-wall-add-entry";
+			}
 			return "activity-social-networking-wall-add-entry";
 		}
 
@@ -128,6 +143,11 @@ public class WallActivityInterpreter extends BaseSocialActivityInterpreter {
 			PermissionChecker permissionChecker, SocialActivity activity,
 			String actionId, ServiceContext serviceContext)
 		throws Exception {
+
+		// Site/group always has a social relation with itself.
+		if (activity.getReceiverUserId() == activity.getGroupId()) {
+			return true;
+		}
 
 		if (!_socialRelationLocalService.hasRelation(
 				serviceContext.getUserId(), activity.getReceiverUserId(),
