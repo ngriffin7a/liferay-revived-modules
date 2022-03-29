@@ -1,3 +1,4 @@
+## Check GETTING_STARTED.markdown#platform.bndrun for more information.
 
 -distro: ${targetPlatformDistro};x-whitelist=osgi.wiring.host
 -resolve.effective: active
